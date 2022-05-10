@@ -13,7 +13,8 @@
 @desc:main函数，整合整个处理流程。
 
 """
-from QA_MADB.KB_Query import neo4j_endpoint, question2cypher
+# from QA_MADB.KB_Query import question_temp, word_tagging
+import neo4j_endpoint, question2cypher
 
 from py2neo import Graph, Node, NodeMatcher, Relationship, RelationshipMatcher
 import os
@@ -46,7 +47,7 @@ class QAInterface:
         my_query = self.q2c.get_cypher(question)
 
         # 最后选取的cypher语句
-        print(my_query)
+        # print(my_query)
 
         if my_query is not None:
             cursor = self.neo4j.get_cypher_result(my_query)
@@ -94,3 +95,23 @@ if __name__ == '__main__':
         ans = qa_interface.answer(question)
         print(ans)
         print('#' * 100)
+
+# import sys
+#
+# if __name__ == '__main__':
+#     qa_interface = QAInterface()
+#     question = []
+#     for i in range(1, len(sys.argv)):
+#         question.append(sys.argv[i])
+#     qa_interface = QAInterface()
+#     ans = qa_interface.answer(question[0])
+#     print(ans)
+
+import sys
+
+# if __name__ == '__main__':
+#     qa_interface = QAInterface()
+#     question = 'XAA9909109R的可以装配什么车型上'
+#     qa_interface = QAInterface()
+#     ans = qa_interface.answer(question)
+#     print(ans)

@@ -179,7 +179,7 @@ class QuestionSet:
         return cypher
 
     @staticmethod
-    def query_part_vehicle_Type(word_objects):
+    def query_part_vehicle_type(word_objects):
         """
         配件可以装配的车型
         :param word_objects:
@@ -187,9 +187,9 @@ class QuestionSet:
         """
 
         # 返回结果的keyWord构建
-        result = u'v.vehicleTypeNames as 车型名称, v.vehicleTypeId as 车型编号'
+        result = u'v.vehicleType as 车型名称, v.vehicleTypeId as 车型编号'
 
-        select = u"(p:Part)<-[r:assemble]-(v:VehicleType)"
+        select = u"(p:Part)<-[r:mount]-(v:VehicleType)"
         cypher = None
         for w in word_objects:
             if w.pos == pos_part:
@@ -732,7 +732,7 @@ part_vendor = (W("供应商") | W("配件供应商"))
 part_basic = (part_info | part_spec | part_type | part_vendor)
 
 part_mount = (W("装配") | W("安装") | W("使用") | W("用"))
-part_vehicle_Type = (W("车型") | W("型号"))
+part_vehicle_type = (W("车型") | W("型号"))
 
 part_replace = (W("互换件") | W("替换件"))
 part_fault = (W("故障") | W("故障名称") | W("问题"))
@@ -853,7 +853,7 @@ rules = [
     Rule(condition_num=2, condition=part_entity + Star(Any(), greedy=False) + part_basic + Star(Any(), greedy=False),
          action=QuestionSet.query_part_basic),
     Rule(condition_num=3, condition=part_entity + Star(Any(), greedy=False)  + part_mount + Star(Any(), greedy=False) +
-        part_vehicle_Type + Star(Any(), greedy=False),action=QuestionSet.query_part_vehicle_Type),
+        part_vehicle_type + Star(Any(), greedy=False), action=QuestionSet.query_part_vehicle_type),
     Rule(condition_num=2, condition=part_entity + Star(Any(), greedy=False) + part_replace + Star(Any(), greedy=False),
          action=QuestionSet.query_part_replace),
     Rule(condition_num=2, condition=part_entity + Star(Any(), greedy=False) + part_fault + Star(Any(), greedy=False),

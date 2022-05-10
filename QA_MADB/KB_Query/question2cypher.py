@@ -11,7 +11,9 @@
 @desc: 将自然语言转为Cypher查询语句
 
 """
-from QA_MADB.KB_Query import question_temp, word_tagging
+# from QA_MADB.KB_Query import question_temp, word_tagging
+import question_temp, word_tagging
+
 
 
 class Question2Sparql:
